@@ -10,6 +10,9 @@ if &compatible
 	set nocompatible
 endif
 
+let $LANG = 'en'  "set message language
+set langmenu=en   "set menu's language of gvim. no spaces beside '='
+
 " let $NVIM_PYTHON_LOG_FILE = '/tmp/nvim_log'
 " let $NVIM_PYTHON_LOG_LEVEL = 'DEBUG'
 
@@ -24,6 +27,7 @@ let g:dein#install_max_processes = 16
 let g:dein#install_progress_type = 'echo'
 let g:dein#enable_notification = 0
 let g:dein#install_log_filename = $VARPATH.'/dein.log'
+let &pythonthreedll = 'D:\Software\Development\Python\Python37\python37.dll'
 
 " Search and use environments specifically made for Neovim.
 if isdirectory($VARPATH.'/venv/neovim2')
@@ -32,6 +36,7 @@ endif
 if isdirectory($VARPATH.'/venv/neovim3')
 	let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
 endif
+let g:python3_host_prog = 'D:\Software\Development\Python\Python37\python.exe'
 
 if has('pythonx')
 	if has('python3')
@@ -75,7 +80,7 @@ function! s:dein_load_yaml(filename) abort
 		" Fallback to use python3 and PyYAML
 	python3 << endpython
 import vim, yaml
-with open(vim.eval('a:filename'), 'r') as f:
+with open(vim.eval('a:filename'), 'r', encoding='UTF-8') as f:
 	vim.vars['denite_plugins'] = yaml.safe_load(f.read())
 endpython
 	endif

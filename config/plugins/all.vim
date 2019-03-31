@@ -39,6 +39,7 @@ if dein#tap('denite.nvim')
 	vnoremap <silent> <Leader>gg
 		\ :<C-u>call <SID>get_selection('/')<CR>
 		\ :execute 'Denite -buffer-name=search grep:::'.@/<CR><CR>
+	" Denite grep:::`expand('<cword>')`
 
 	function! s:get_selection(cmdtype)
 		let temp = @s
@@ -136,6 +137,8 @@ endif
 if dein#tap('vim-quickhl')
 	nmap <Leader>, <Plug>(quickhl-manual-this)
 	xmap <Leader>, <Plug>(quickhl-manual-this)
+	nmap <Leader>< <Plug>(quickhl-manual-reset)
+	xmap <Leader>< <Plug>(quickhl-manual-reset)
 endif
 
 if dein#tap('vim-sidemenu')

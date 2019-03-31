@@ -102,11 +102,12 @@ nmap <<  <<_
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
 " Navigation in command line
-cnoremap <C-h> <Home>
-cnoremap <C-l> <End>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
-cnoremap <C-d> <C-w>
+cnoremap <c-d> <del>
+cnoremap <c-_> <c-k>
 
 " Switch history search pairs, matching my bash shell
 cnoremap <C-p>  <Up>
@@ -144,6 +145,10 @@ autocmd MyAutoCmd FileType man nnoremap <silent><buffer> q :<C-u>:quit<CR>
 nnoremap Q q
 nnoremap gQ @q
 
+nnoremap <Leader>q: q:
+nnoremap <Leader>q/ q/
+nnoremap <Leader>q? q?
+
 " Show highlight names under cursor
 nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
@@ -168,6 +173,7 @@ nnoremap <silent> <C-S-Tab> :<C-U>tabprevious<CR>
 let g:lasttab = 1
 nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
 
+nnoremap <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
 
 " }}}
 " Totally Custom {{{
@@ -242,18 +248,30 @@ vnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
 " Yank buffer's absolute path to X11 clipboard
-nnoremap <Leader>y :let @+=expand("%")<CR>:echo 'Relative path copied to clipboard.'<CR>
-nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Absolute path copied to clipboard.'<CR>
+nnoremap <C-c> :let @+=expand("%")<CR>:echo 'Relative path copied to clipboard.'<CR>
+nnoremap <Leader><C-c> :let @+=expand("%:p")<CR>:echo 'Absolute path copied to clipboard.'<CR>
+
+" Yank and paste
+" if has("gui_running")
+"   map  <silent>  <S-Insert>  "+p
+"   imap <silent>  <S-Insert>  <Esc>"+pa
+" endif
+vnoremap <leader>y "+y<CR>
+nnoremap <leader>p "+gP<CR>
+" set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
 
 " Drag current line/s vertically and auto-indent
-vnoremap mk :m-2<CR>gv=gv
-vnoremap mj :m'>+<CR>gv=gv
-noremap  mk :m-2<CR>
-noremap  mj :m+<CR>
+nnoremap <silent><C-S-Down> :m .+1<CR>==
+nnoremap <silent><C-S-Up> :m .-2<CR>==
+inoremap <silent><C-S-Down> <Esc>:m .+1<CR>==gi
+inoremap <silent><C-S-Up> <Esc>:m .-2<CR>==gi
+vnoremap <silent><C-S-Down> :m '>+1<CR>gv=gv
+vnoremap <silent><C-S-Up> :m '<-2<CR>gv=gv
 
 " Session management shortcuts
-nmap <silent> <Leader>se :<C-u>execute 'SessionSave' fnamemodify(resolve(getcwd()), ':p:gs?/?_?')<CR>
-nmap <silent> <Leader>os :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?/?_?').'.vim'<CR>
+" nmap <silent> <Leader>se :<C-u>execute 'SessionSave' fnamemodify(resolve(getcwd()), ':p:gs?/?_?')<CR>
+" nmap <silent> <Leader>os :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?/?_?').'.vim'<CR>
 
 if has('mac')
 	" Open the macOS dictionary on current word
@@ -305,10 +323,18 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :b#<CR>
 nnoremap <silent> [Window]c  :close<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
+nnoremap <silent> [Window]q  :bdelete<CR>
+nnoremap <silent> <A-s>      <C-w>w
 
 " Split current buffer, go to previous window and previous buffer
-nnoremap <silent> [Window]sv :split<CR>:wincmd p<CR>:e#<CR>
-nnoremap <silent> [Window]sg :vsplit<CR>:wincmd p<CR>:e#<CR>
+nnoremap <silent> [Window]V :split<CR>:wincmd p<CR>:e#<CR>
+nnoremap <silent> [Window]G :vsplit<CR>:wincmd p<CR>:e#<CR>
+
+" Resize splits with arrow keys
+nnoremap <up> :res +5<CR>
+nnoremap <down> :res -5<CR>
+nnoremap <left> :vertical resize-5<CR>
+nnoremap <right> :vertical resize+5<CR>
 
 function! WipeHiddenBuffers()
 	let tpbl=[]

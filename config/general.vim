@@ -69,6 +69,21 @@ if has('wildmenu')
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
 	set wildignore+=__pycache__,*.egg-info,.pytest_cache
+	set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
+  set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+  set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+  set wildignore+=.ipch
+  set wildignore+=*.gem
+  set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+  set wildignore+=*/.nx/**,*.app,*.git,.git
+  set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+  set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+  set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+  set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+  set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+  set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
+  set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+  set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
 endif
 
 " }}}
@@ -80,6 +95,7 @@ set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
 set viewdir=$VARPATH/view/
 set nospell spellfile=$VIMPATH/spell/en.utf-8.add
+set spelllang=en,cjk "cjk means chinese and japanese
 
 " History saving
 set history=2000

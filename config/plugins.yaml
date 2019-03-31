@@ -21,8 +21,8 @@
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
 
 # Vim8 only:
-- { repo: roxma/nvim-yarp, if: ! has('nvim') }
-- { repo: roxma/vim-hug-neovim-rpc, if: ! has('nvim'), depends: nvim-yarp }
+- { repo: roxma/nvim-yarp, if: has('nvim')-1 }
+- { repo: roxma/vim-hug-neovim-rpc, if: has('nvim')-1, depends: nvim-yarp }
 
 # Lazy Loading
 # ==========================================
@@ -172,7 +172,7 @@
   on_source: defx.nvim
   hook_source: |
     let g:defx_icons_column_length = 2
-    let g:defx_icons_mark_icon = '✓'
+#    let g:defx_icons_mark_icon = '✓'
 
 - repo: scrooloose/nerdtree
   on_map: { n: <Plug> }
@@ -294,7 +294,7 @@
   hook_source: let g:committia_min_window_width = 70
 
 - repo: benekastah/neomake
-  if: has('nvim')
+  if: has('nvim')-0
   on_cmd: [ Neomake, NeomakeFile, NeomakeEnable ]
   hook_source: source $VIMPATH/config/plugins/neomake.vim
   hook_add: |
@@ -384,6 +384,20 @@
       \ '*/wp-admin', '*/wp-content', '*/wp-includes',
       \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
       \ ]
+    let g:gutentags_modules = []
+    if executable('ctags')
+      let g:gutentags_modules += ['ctags']
+    endif
+    if executable('gtags-cscope') && executable('gtags')
+      let g:gutentags_modules += ['gtags_cscope']
+    endif
+    let g:gutentags_auto_add_gtags_cscope = 0
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    if has('win32') || has('win16') || has('win64') || has('win95')
+      let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+    endif
 
 - repo: mattn/emmet-vim
   on_event: InsertEnter

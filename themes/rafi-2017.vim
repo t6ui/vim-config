@@ -5,7 +5,7 @@
 " gVim Appearance {{{
 " ---------------------------------------------------------
 if has('gui_running')
-	set guifont=PragmataPro:h16
+	set guifont=Consolas:h11:cANSI:qDRAFT
 	" set noantialias
 endif
 " }}}

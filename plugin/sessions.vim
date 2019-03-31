@@ -1,6 +1,7 @@
 
 " Session Management
 " ---
+if 0
 
 let g:session_directory = $VARPATH.'/session'
 
@@ -21,6 +22,8 @@ augroup sessionsave
 		\ |   execute 'mksession! '.fnameescape(v:this_session)
 		\ | endif
 augroup END
+
+endif
 
 function! s:session_save(name) abort
 	if ! isdirectory(g:session_directory)
