@@ -45,18 +45,11 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
-	autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
-
 	autocmd FileType yaml.docker-compose setlocal expandtab
 
 	autocmd FileType gitcommit setlocal spell
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
-
-	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType css,javascript,jsx,javascript.jsx
-		\ setlocal backupcopy=yes
-		\| setlocal equalprg=jslint
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
@@ -86,10 +79,6 @@ augroup END " }}}
 " Internal Plugin Settings  {{{
 " ------------------------
 
-" PHP {{{
-let g:PHP_removeCRwhenUnix = 0
-
-" }}}
 " Python {{{
 let g:python_highlight_all = 1
 
@@ -112,20 +101,10 @@ let g:java_space_errors = 1
 let g:java_highlight_functions = 1
 
 " }}}
-" JavaScript {{{
-let g:SimpleJsIndenter_BriefMode = 1
-let g:SimpleJsIndenter_CaseIndentLevel = -1
-
-" }}}
 " Markdown {{{
 let g:markdown_fenced_languages = [
-	\  'css',
-	\  'javascript',
-	\  'js=javascript',
-	\  'json=javascript',
 	\  'python',
 	\  'py=python',
-	\  'docker=Dockerfile',
 	\  'makefile=make',
 	\  'sh',
 	\  'sass',
@@ -141,8 +120,6 @@ let g:markdown_fenced_languages = [
 let g:vimsyn_folding = 'af'
 let g:tex_fold_enabled = 1
 let g:xml_syntax_folding = 1
-let g:php_folding = 2
-let g:php_phpdoc_folding = 1
 let g:perl_fold = 1
 " }}}
 " }}}

@@ -29,11 +29,6 @@
 
 # Languages
 # ---------
-- { repo: hail2u/vim-css3-syntax, on_ft: css }
-- { repo: ap/vim-css-color, on_ft: [ css, scss, sass ] }
-- { repo: cakebaker/scss-syntax.vim, on_ft: [ scss, sass ]}
-- { repo: groenewege/vim-less, on_ft: less }
-- { repo: othree/csscomplete.vim, on_ft: css }
 - { repo: mustache/vim-mustache-handlebars, on_ft: html }
 - { repo: pearofducks/ansible-vim, on_ft: [ yaml.ansible, ansible_hosts ]}
 
@@ -60,9 +55,6 @@
       \ 'viml=vim',
       \ 'bash=sh',
       \ 'ini=dosini',
-      \ 'js=javascript',
-      \ 'json=javascript',
-      \ 'docker=Dockerfile',
       \ 'makefile=make',
       \ 'py=python'
       \ ]
@@ -75,88 +67,20 @@
     let g:gfm_syntax_highlight_emoji = 0
     let g:gfm_syntax_enable_filetypes = ['markdown']
 
-- repo: pangloss/vim-javascript
-  on_ft: [ javascript, jsx, javascript.jsx ]
-  hook_source: |
-    let g:javascript_plugin_jsdoc = 1
-    let g:javascript_plugin_flow = 1
-    highlight! link jsFutureKeys PreProc
-
-- { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: posva/vim-vue, on_ft: [ vue ]}
-- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: jparise/vim-graphql, on_ft: [ javascript, jsx, javascript.jsx ] }
-- { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: elzr/vim-json, on_ft: json }
-
-- repo: MaxMEllon/vim-jsx-pretty
-  on_ft: [ javascript, jsx, javascript.jsx ]
-  depends: vim-javascript
-  hook_source: let g:vim_jsx_pretty_colorful_config = 1
-
-# pangloss/javascript vs. othree/yajs
-#- { repo: othree/yajs.vim, on_ft: [ javascript, jsx, javascript.jsx ]}
-#- { repo: gavocanov/vim-js-indent, on_ft: [ javascript, jsx, javascript.jsx ]}
-#- repo: mxw/vim-jsx
-#  on_ft: [ javascript, jsx, javascript.jsx ]
-#  hook_source: let g:jsx_ext_required = 0
-
-- repo: fatih/vim-go
-  on_ft: go
-  hook_source: |
-    let g:go_highlight_array_whitespace_error = 0
-    let g:go_highlight_chan_whitespace_error = 0
-    let g:go_highlight_space_tab_error = 0
-    let g:go_highlight_trailing_whitespace_error = 0
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_build_constraints = 1
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_format_strings = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_function_calls = 1
-    let g:go_highlight_function_parameters = 1
-    let g:go_highlight_types = 1
-    let g:go_highlight_generate_tags = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_string_spellcheck = 0
-    let g:go_highlight_variable_declarations = 0
-    let g:go_highlight_variable_assignments = 0
 
 - { repo: vim-python/python-syntax, on_ft: python }
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
 - { repo: vim-scripts/python_match.vim, on_ft: python }
 - { repo: tmhedberg/SimpylFold, on_ft: python }
-- { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 
-- { repo: StanAngeloff/php.vim, on_ft: php }
-- { repo: shawncplus/phpcomplete.vim, on_ft: php, on_i: 1 }
-
-- { repo: tbastos/vim-lua, on_ft: lua }
 - { repo: osyo-manga/vim-monster, on_ft: ruby }
-- { repo: toyamarinyon/vim-swift, on_ft: swift }
-- { repo: rust-lang/rust.vim, on_ft: rust }
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 
-- { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tpope/vim-git, on_ft: [ gitcommit, gitrebase, gitconfig ]}
 - { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, yaml.docker-compose ]}
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
-
-- repo: hashivim/vim-terraform
-  on_ft: terraform
-  on_cmd: [ Terraform, TerraformFmt ]
-  hook_source: let g:terraform_fmt_on_save = 1
-
-- { repo: cespare/vim-toml, on_ft: toml }
-- { repo: mboughaba/i3config.vim, on_ft: i3config }
-- { repo: dag/vim-fish, on_ft: fish }
-- { repo: jstrater/mpvim, on_ft: portfile }
-- { repo: robbles/logstash.vim, on_ft: logstash }
-- { repo: exu/pgsql.vim, on_ft: pgsql }
-- { repo: othree/nginx-contrib-vim, on_ft: nginx }
-- { repo: IN3D/vim-raml, on_ft: raml }
 
 # ==========================================
 # Commands
@@ -236,9 +160,6 @@
   on_cmd: TagbarToggle
   hook_source: |
     let g:tagbar_width = 40
-    if executable('jsctags')
-      let g:tagbar_type_javascript = { 'ctagsbin': 'jsctags' }
-    endif
 
 - repo: beloglazov/vim-online-thesaurus
   on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
@@ -299,9 +220,8 @@
   hook_source: source $VIMPATH/config/plugins/neomake.vim
   hook_add: |
     let g:lint_types = [
-      \  'yaml.ansible', 'python', 'php', 'ruby', 'vim', 'go', 'sh',
-      \  'javascript', 'jsx', 'javascript.jsx', 'json', 'css',
-      \  'markdown', 'html', 'yaml'
+      \  'python', 'ruby', 'vim', 'sh', 'json', 'markdown'
+      \  'yaml.ansible', 'yaml', 'html'
       \ ]
     autocmd MyAutoCmd BufWritePost *
       \  if expand('%:p') !~ $VIMPATH
@@ -439,24 +359,10 @@
     let g:jedi#quickfix_window_height = 10
     let g:jedi#use_splits_not_buffers = 'right'
 
-- repo: deoplete-plugins/deoplete-go
-  build: make
-  on_ft: go
-  on_event: InsertEnter
-
 - repo: deoplete-plugins/deoplete-jedi
   on_ft: python
   on_event: InsertEnter
   hook_source: autocmd MyAutoCmd FileType python setlocal omnifunc=
-
-- repo: carlitux/deoplete-ternjs
-  build: npm install -g tern
-  if: executable('npm')
-  on_event: InsertEnter
-  on_ft: [ javascript, jsx, javascript.jsx ]
-  hook_source: |
-    let g:tern_request_timeout = 1
-    let g:tern_show_signature_in_pum = 0
 
 - repo: wellle/tmux-complete.vim
   on_event: InsertEnter
@@ -465,24 +371,6 @@
 - repo: fszymanski/deoplete-emoji
   on_ft: [ markdown, gitcommit ]
   on_event: InsertEnter
-
-- repo: juliosueiras/vim-terraform-completion
-  hook_add: let g:terraform_completion_keys = 1
-  on_ft: [ terraform ]
-  on_event: InsertEnter
-
-- repo: ternjs/tern_for_vim
-  build: npm install
-  if: executable('npm')
-  on_event: InsertEnter
-  on_ft: [ javascript, jsx, javascript.jsx ]
-  hook_add: |
-    let g:tern#command = ['tern']
-    let g:tern#arguments = ['--persistent']
-    let g:tern_request_timeout = 1
-    let g:tern_show_signature_in_pum = 0
-  hook_post_source: |
-    autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
 # ==========================================
 # Denite

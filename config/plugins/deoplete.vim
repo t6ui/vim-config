@@ -23,30 +23,15 @@ let g:deoplete#sources#jedi#statement_length = 30
 let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#sources#jedi#short_types = 1
 
-let g:deoplete#sources#ternjs#filetypes = [
-	\ 'jsx',
-	\ 'javascript.jsx',
-	\ 'vue',
-	\ 'javascript'
-	\ ]
-
-let g:deoplete#sources#ternjs#timeout = 3
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#docs = 1
-
 " }}}
 " Limit Sources " {{{
 " ---
 
 " let g:deoplete#sources = get(g:, 'deoplete#sources', {})
-" let g:deoplete#sources.go = ['vim-go']
-" let g:deoplete#sources.javascript = ['file', 'ternjs']
-" let g:deoplete#sources.jsx = ['file', 'ternjs']
 
 " let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
 " let g:deoplete#ignore_sources.python = ['syntax']
-" let g:deoplete#ignore_sources.php = ['omni']
 
 " call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 
@@ -54,43 +39,26 @@ let g:deoplete#sources#ternjs#docs = 1
 " Omni functions and patterns " {{{
 " ---
 " let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
-" let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
 " let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
 " let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
-" let g:deoplete#omni#functions.javascript =
-" 	\ [ 'tern#Complete', 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
 
 let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
 call deoplete#custom#option('omni_patterns', {
 \ 'complete_method': 'omnifunc',
-\ 'terraform': '[^ *\t"{=$]\w*',
 \})
-" let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
 " let g:deoplete#omni_patterns.html = '<[^>]*'
-" let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
-" let g:deoplete#omni_patterns.javascript = '[^. \t]\.\%\(\h\w*\)\?'
-" let g:deoplete#omni_patterns.php =
-" 	\ '\w+|[^. \t]->\w*|\w+::\w*'
-	" \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
 " let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
 " let g:deoplete#omni#input_patterns.xml = '<[^>]*'
 " let g:deoplete#omni#input_patterns.md = '<[^>]*'
-" let g:deoplete#omni#input_patterns.css  = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-" let g:deoplete#omni#input_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-" let g:deoplete#omni#input_patterns.sass = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-" let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
 " let g:deoplete#omni#input_patterns.python = ''
-" let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 
 " }}}
 " Ranking and Marks " {{{
 " Default rank is 100, higher is better.
 call deoplete#custom#source('omni',          'mark', '<omni>')
 call deoplete#custom#source('flow',          'mark', '<flow>')
-call deoplete#custom#source('padawan',       'mark', '<php>')
 call deoplete#custom#source('tern',          'mark', '<tern>')
-call deoplete#custom#source('go',            'mark', '<go>')
 call deoplete#custom#source('jedi',          'mark', '<jedi>')
 call deoplete#custom#source('vim',           'mark', '<vim>')
 call deoplete#custom#source('neosnippet',    'mark', '<snip>')
@@ -102,10 +70,8 @@ call deoplete#custom#source('syntax',        'mark', '<syntax>')
 call deoplete#custom#source('member',        'mark', '<member>')
 
 call deoplete#custom#source('padawan',       'rank', 660)
-call deoplete#custom#source('go',            'rank', 650)
 call deoplete#custom#source('vim',           'rank', 640)
 call deoplete#custom#source('flow',          'rank', 630)
-call deoplete#custom#source('TernJS',        'rank', 620)
 call deoplete#custom#source('jedi',          'rank', 610)
 call deoplete#custom#source('omni',          'rank', 600)
 call deoplete#custom#source('neosnippet',    'rank', 510)

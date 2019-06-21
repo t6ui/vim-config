@@ -23,7 +23,6 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead .jscsrc              setfiletype json
 	autocmd BufNewFile,BufRead .babelrc             setfiletype json
 	autocmd BufNewFile,BufRead .watchmanconfig      setfiletype json
-	autocmd BufNewFile,BufRead .buckconfig          setfiletype toml
 	autocmd BufNewFile,BufRead .flowconfig          setfiletype ini
 
 	autocmd BufNewFile,BufRead *.{feature,story}    setfiletype cucumber
