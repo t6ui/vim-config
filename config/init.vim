@@ -3,20 +3,19 @@
 " ------------------
 
 " Global Mappings "{{{
-" Use spacebar as leader and ; as secondary-leader
+" Use spacebar as leader and , as secondary-leader
 " Required before loading plugins!
 let g:mapleader="\<Space>"
 let g:maplocalleader=';'
 
-" Release keymappings prefixes, evict entirely for use of plug-ins.
-nnoremap <Space>  <Nop>
-xnoremap <Space>  <Nop>
-nnoremap ,        <Nop>
-xnoremap ,        <Nop>
-nnoremap ;        <Nop>
-xnoremap ;        <Nop>
-nnoremap m        <Nop>
-xnoremap m        <Nop>
+inoremap jk  <esc>
+
+" nnoremap <Space>  <Nop>
+" xnoremap <Space>  <Nop>
+" nnoremap ;        <Nop>
+" xnoremap ;        <Nop>
+" nnoremap m        <Nop>
+" xnoremap m        <Nop>
 
 " }}}
 " Ensure cache directory "{{{
@@ -39,6 +38,13 @@ endif
 
 " }}}
 " Setup dein {{{
+let g:dein#auto_recache = 0
+let g:dein#install_max_processes = 16
+let g:dein#install_progress_type = 'echo'
+let g:dein#enable_notification = 0
+let g:dein#install_log_filename = $VARPATH.'/dein.log'
+let &pythonthreedll = 'D:\Software\Development\Python\Python37\python37.dll'
+
 if &runtimepath !~# '/dein.vim'
 	let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'
 	if ! isdirectory(s:dein_dir)
@@ -66,7 +72,7 @@ let g:loaded_matchit = 1
 let g:loaded_matchparen = 1
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 let g:loaded_rrhelper = 1
-let g:loaded_ruby_provider = 1
+" let g:loaded_ruby_provider = 1
 let g:loaded_shada_plugin = 1
 let g:loaded_tar = 1
 let g:loaded_tarPlugin = 1

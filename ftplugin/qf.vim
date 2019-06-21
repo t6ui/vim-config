@@ -9,7 +9,7 @@ let b:did_ftplugin = 1
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-let b:undo_ftplugin = 'setl fo< com< ofu<'
+let b:undo_ftplugin = 'setl fo< com< rnu< nu< bl<'
 
 setlocal winminheight=1 winheight=3
 setlocal nowrap
@@ -21,14 +21,18 @@ setlocal nobuflisted
 
 wincmd J
 
-nnoremap <buffer> <CR> <CR><C-w>p
-nnoremap <buffer> sv   <C-w><CR>
-nnoremap <buffer> sg   <C-w><Enter><C-w>L
-nnoremap <buffer> st   <C-w><CR><C-w>T
-nnoremap <silent><buffer> p  :call <SID>preview_file()<CR>
+" https://github.com/mileszs/ack.vim/blob/master/doc/ack.txt
+nnoremap <buffer> t   <C-w><CR><C-w>T
+nnoremap <buffer> T   <C-w><CR><C-w>TgT<C-W>j
+nnoremap <buffer> o    <CR>
+" nnoremap <buffer> O    <CR><C-w><C-w>:ccl<CR>
+nnoremap <buffer> go   <CR><C-W>j
+nnoremap <buffer> s   <C-W><CR><C-W>K
+nnoremap <buffer> S   <C-W><CR><C-W>K<C-W>b
+nnoremap <buffer> v   <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+nnoremap <buffer> V   <C-W><CR><C-W>H<C-W>b<C-W>J
+" nnoremap <silent><buffer> p  :call <SID>preview_file()<CR>
 nnoremap <silent><buffer> q  :pclose!<CR>:quit<CR>
-nnoremap <buffer> o    <CR><C-w>p
-nnoremap <buffer> o    <CR><C-w>p
 
 let b:qf_isLoc = ! empty(getloclist(0))
 if b:qf_isLoc == 1

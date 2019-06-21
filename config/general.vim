@@ -16,12 +16,12 @@ set synmaxcol=1000           " Don't syntax highlight long lines
 set formatoptions+=1         " Don't break lines after a one-letter word
 set formatoptions-=t         " Don't auto-wrap text
 if has('patch-7.3.541')
-	set formatoptions+=j       " Remove comment leader when joining lines
+  set formatoptions+=j       " Remove comment leader when joining lines
 endif
 
 if has('vim_starting')
-	set encoding=utf-8
-	scriptencoding utf-8
+  set encoding=utf-8
+  scriptencoding utf-8
 endif
 
 " What to save for views:
@@ -38,38 +38,42 @@ set sessionoptions-=buffers
 set sessionoptions+=tabpages
 
 if has('mac')
-	let g:clipboard = {
-		\   'name': 'macOS-clipboard',
-		\   'copy': {
-		\      '+': 'pbcopy',
-		\      '*': 'pbcopy',
-		\    },
-		\   'paste': {
-		\      '+': 'pbpaste',
-		\      '*': 'pbpaste',
-		\   },
-		\   'cache_enabled': 0,
-		\ }
+  let g:clipboard = {
+    \   'name': 'macOS-clipboard',
+    \   'copy': {
+    \      '+': 'pbcopy',
+    \      '*': 'pbcopy',
+    \    },
+    \   'paste': {
+    \      '+': 'pbpaste',
+    \      '*': 'pbpaste',
+    \   },
+    \   'cache_enabled': 0,
+    \ }
 endif
 
 if has('clipboard')
-	set clipboard& clipboard+=unnamedplus
+  if has('unnamedplus')
+    set clipboard& clipboard+=unnamedplus,unnamed
+  else
+    set clipboard& clipboard+=unnamed
+  endif
 endif
 
 " }}}
 " Wildmenu {{{
 " --------
 if has('wildmenu')
-	set nowildmenu
-	set wildmode=list:longest,full
-	set wildoptions=tagfile
-	set wildignorecase
-	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
-	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
-	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
-	set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
-	set wildignore+=__pycache__,*.egg-info,.pytest_cache
-	set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
+  set nowildmenu
+  set wildmode=list:longest,full
+  set wildoptions=tagfile
+  set wildignorecase
+  set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+  set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
+  set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
+  set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
+  set wildignore+=__pycache__,*.egg-info,.pytest_cache
+  set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
   set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
   set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
   set wildignore+=.ipch
@@ -89,7 +93,7 @@ endif
 " }}}
 " Vim Directories {{{
 " ---------------
-set undofile swapfile nobackup
+set undofile noswapfile nobackup
 set directory=$VARPATH/swap//,$VARPATH,~/tmp,/var/tmp,/tmp
 set undodir=$VARPATH/undo//,$VARPATH,~/tmp,/var/tmp,/tmp
 set backupdir=$VARPATH/backup/,$VARPATH,~/tmp,/var/tmp,/tmp
@@ -98,17 +102,17 @@ set nospell spellfile=$VIMPATH/spell/en.utf-8.add
 set spelllang=en,cjk "cjk means chinese and japanese
 
 " History saving
-set history=2000
+set history=1000
 if has('nvim')
-	"  ShaDa/viminfo:
-	"   ' - Maximum number of previously edited files marks
-	"   < - Maximum number of lines saved for each register
-	"   @ - Maximum number of items in the input-line history to be
-	"   s - Maximum size of an item contents in KiB
-	"   h - Disable the effect of 'hlsearch' when loading the shada
-	set shada='300,<50,@100,s10,h
+  "  ShaDa/viminfo:
+  "   ' - Maximum number of previously edited files marks
+  "   < - Maximum number of lines saved for each register
+  "   @ - Maximum number of items in the input-line history to be
+  "   s - Maximum size of an item contents in KiB
+  "   h - Disable the effect of 'hlsearch' when loading the shada
+  set shada='300,<50,@100,s10,h
 else
-	set viminfo='300,<10,@50,h,n$VARPATH/viminfo
+  set viminfo='300,<10,@50,h,n$VARPATH/viminfo
 endif
 
 " }}}
@@ -158,7 +162,7 @@ set nostartofline               " Cursor in same column for few commands
 set whichwrap+=h,l,<,>,[,],~    " Move to following line on certain keys
 set splitbelow splitright       " Splits open bottom right
 set switchbuf=useopen,usetab    " Jump to the first open window in any tab
-set switchbuf+=vsplit           " Switch buffer behavior to vsplit
+" set switchbuf+=vsplit           " Switch buffer behavior to vsplit
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore whitespace
 set showfulltag                 " Show tag and tidy search in completion
@@ -166,16 +170,18 @@ set complete=.                  " No wins, buffs, tags, include scanning
 set completeopt=menuone         " Show menu even for one item
 set completeopt+=noselect       " Do not select a match in the menu
 if has('patch-7.4.775')
-	set completeopt+=noinsert
+  set completeopt+=noinsert
 endif
 
 if has('patch-8.1.0360')
-	set diffopt+=internal,algorithm:patience
+  set diffopt+=internal,algorithm:patience
 endif
 
 if exists('+inccommand')
-	set inccommand=nosplit
+  set inccommand=nosplit
 endif
+
+set tags=./.tags;,.tags
 
 " }}}
 " Editor UI Appearance {{{
@@ -184,7 +190,7 @@ set noshowmode          " Don't show mode in cmd window
 set shortmess=aoOTI     " Shorten messages and don't show intro
 set scrolloff=2         " Keep at least 2 lines above/below
 set sidescrolloff=5     " Keep at least 5 lines left/right
-set nonumber            " Don't show line numbers
+set number            " Don't show line numbers
 set noruler             " Disable default status ruler
 set list                " Show hidden characters
 
@@ -208,21 +214,39 @@ set display=lastline
 " Do not display completion messages
 " Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
 if has('patch-7.4.314')
-	set shortmess+=c
+  set shortmess+=c
 endif
 
 " Do not display message when editing files
 if has('patch-7.4.1570')
-	set shortmess+=F
+  set shortmess+=F
 endif
 
 " For snippet_complete marker
 if has('conceal') && v:version >= 703
-	set conceallevel=2 concealcursor=niv
+  set conceallevel=2 concealcursor=niv
 endif
 
 if exists('&pumblend')
-	set pumblend=20
+  set pumblend=20
+endif
+
+if exists('&winblend')
+	set winblend=20
+endif
+
+" this maximizes the gvim window on startup
+if has("gui_win32")
+  " this maximizes on windows
+  au GUIEnter * simalt ~x
+else
+  " We never maximize in macvim. We rely on it remembering the window size
+  " itself.
+  if !has("gui_macvim")
+    " NOTE: Needs 'sudo apt install wmctrl' to work!
+    au GUIEnter * call system(
+          \ 'wmctrl -i -b add,maximized_vert,maximized_horz -r ' . v:windowid )
+  endif
 endif
 
 " }}}
@@ -232,45 +256,45 @@ endif
 " FastFold
 " Credits: https://github.com/Shougo/shougo-s-github
 autocmd MyAutoCmd TextChangedI,TextChanged *
-	\ if &l:foldenable && &l:foldmethod !=# 'manual' |
-	\   let b:foldmethod_save = &l:foldmethod |
-	\   let &l:foldmethod = 'manual' |
-	\ endif
+  \ if &l:foldenable && &l:foldmethod !=# 'manual' |
+  \   let b:foldmethod_save = &l:foldmethod |
+  \   let &l:foldmethod = 'manual' |
+  \ endif
 
 autocmd MyAutoCmd BufWritePost *
-	\ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
-	\   let &l:foldmethod = b:foldmethod_save |
-	\   execute 'normal! zx' |
-	\ endif
+  \ if &l:foldmethod ==# 'manual' && exists('b:foldmethod_save') |
+  \   let &l:foldmethod = b:foldmethod_save |
+  \   execute 'normal! zx' |
+  \ endif
 
 if has('folding')
-	set foldenable
-	set foldmethod=syntax
-	set foldlevelstart=99
-	set foldtext=FoldText()
+  set foldenable
+  set foldmethod=syntax
+  set foldlevelstart=99
+  set foldtext=FoldText()
 endif
 
 " Improved Vim fold-text
 " See: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 function! FoldText()
-	" Get first non-blank line
-	let fs = v:foldstart
-	while getline(fs) =~? '^\s*$' | let fs = nextnonblank(fs + 1)
-	endwhile
-	if fs > v:foldend
-		let line = getline(v:foldstart)
-	else
-		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-	endif
+  " Get first non-blank line
+  let fs = v:foldstart
+  while getline(fs) =~? '^\s*$' | let fs = nextnonblank(fs + 1)
+  endwhile
+  if fs > v:foldend
+    let line = getline(v:foldstart)
+  else
+    let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+  endif
 
-	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-	let foldSize = 1 + v:foldend - v:foldstart
-	let foldSizeStr = ' ' . foldSize . ' lines '
-	let foldLevelStr = repeat('+--', v:foldlevel)
-	let lineCount = line('$')
-	let foldPercentage = printf('[%.1f', (foldSize*1.0)/lineCount*100) . '%] '
-	let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-	return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+  let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+  let foldSize = 1 + v:foldend - v:foldstart
+  let foldSizeStr = ' ' . foldSize . ' lines '
+  let foldLevelStr = repeat('+--', v:foldlevel)
+  let lineCount = line('$')
+  let foldPercentage = printf('[%.1f', (foldSize*1.0)/lineCount*100) . '%] '
+  let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+  return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endfunction
 
 " }}}

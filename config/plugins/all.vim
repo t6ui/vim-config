@@ -1,6 +1,34 @@
 
 " Plugin Settings
 "---------------------------------------------------------
+if dein#tap('vim-which-key')
+  nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+  nnoremap <silent> <localleader> :<c-u>WhichKey ';'<CR>
+endif
+
+if dein#tap('vim-rooter')
+	nnoremap <Leader>, :<c-u>Rooter<CR>
+endif
+
+if dein#tap('vim-preview')
+  nnoremap <silent>S :PreviewTag<cr>
+  " nnoremap <silent>X :PreviewClose<cr>
+  " noremap <silent><tab>; :PreviewGoto edit<cr>
+  " noremap <silent><tab>: :PreviewGoto tabe<cr>
+  " nnoremap _ :<c-u>PreviewScroll -1<cr>
+  " nnoremap + :<c-u>PreviewScroll +1<cr>
+  nnoremap <C-p> :<c-u>PreviewScroll -1<cr>
+  nnoremap <C-n> :<c-u>PreviewScroll +1<cr>
+  nnoremap <C-s> :PreviewSignature!<cr>
+  inoremap <C-s> <c-\><c-o>:PreviewSignature!<cr>
+  autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+  autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+endif
+
+if dein#tap('vim-startify')
+  " noremap <Leader>ss :<c-u>SSave<cr>
+  " noremap <Leader>sl :<c-u>SLoad<cr>
+endif
 
 if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -no-start-filter<CR>
@@ -54,32 +82,24 @@ if dein#tap('vim-denite-z')
 		\ call denite#start([{'name': 'z', 'args': [<q-args>], {'immediately': 1}}])
 endif
 
-if dein#tap('tagbar')
-	nnoremap <silent> <Leader>o   :<C-u>TagbarOpenAutoClose<CR>
-
-	" Also use h/l to open/close folds
-	let g:tagbar_map_closefold = ['h', '-', 'zc']
-	let g:tagbar_map_openfold = ['l', '+', 'zo']
-endif
-
 if dein#tap('defx.nvim')
 	nnoremap <silent> <LocalLeader>e
 		\ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
-	nnoremap <silent> <LocalLeader>a
+	nnoremap <silent> <LocalLeader>E
 		\ :<C-u>Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`<CR>
 endif
 
 if dein#tap('nerdtree')
-	let g:NERDTreeMapOpenSplit = 'sv'
-	let g:NERDTreeMapOpenVSplit = 'sg'
-	let g:NERDTreeMapOpenInTab = 'st'
-	let g:NERDTreeMapOpenInTabSilent = 'sT'
+	let g:NERDTreeMapOpenSplit = ',v'
+	let g:NERDTreeMapOpenVSplit = ',g'
+	let g:NERDTreeMapOpenInTab = ',t'
+	let g:NERDTreeMapOpenInTabSilent = ',T'
 	let g:NERDTreeMapUpdirKeepOpen = '<BS>'
 	let g:NERDTreeMapOpenRecursively = 't'
 	let g:NERDTreeMapCloseChildren = 'T'
 	let g:NERDTreeMapToggleHidden = '.'
 
-	nnoremap <silent> <Leader>e :<C-u>let NERDTreeWinPos=0 \| NERDTreeToggle<CR>
+	" nnoremap <silent> <Leadee>e :<C-u>let NERDTreeWinPos=0 \| NERDTreeToggle<CR>
 	" nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0 \| NERDTreeFind<CR>
 	" nnoremap <silent> <LocalLeader>E :<C-u>let NERDTreeWinPos=1 \| NERDTreeToggle<CR>
 	" nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1 \| NERDTreeFind<CR>
@@ -100,21 +120,12 @@ if dein#tap('emmet-vim')
 endif
 
 if dein#tap('vim-operator-surround')
-	map <silent>sa <Plug>(operator-surround-append)
-	map <silent>sd <Plug>(operator-surround-delete)
-	map <silent>sr <Plug>(operator-surround-replace)
-	nmap <silent>saa <Plug>(operator-surround-append)<Plug>(textobj-multiblock-i)
-	nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-	nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
-endif
-
-if dein#tap('vim-operator-replace')
-	xmap p <Plug>(operator-replace)
-endif
-
-if dein#tap('vim-operator-flashy')
-	map y <Plug>(operator-flashy)
-	nmap Y <Plug>(operator-flashy)$
+	map <silent>,a <Plug>(operator-surround-append)
+	map <silent>,d <Plug>(operator-surround-delete)
+	map <silent>,r <Plug>(operator-surround-replace)
+	nmap <silent>,aa <Plug>(operator-surround-append)<Plug>(textobj-multiblock-i)
+	nmap <silent>,dd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+	nmap <silent>,rr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 endif
 
 if dein#tap('vim-niceblock')
@@ -134,29 +145,31 @@ if dein#tap('vim-edgemotion')
 	xmap gk <Plug>(edgemotion-k)
 endif
 
+if dein#tap('vim-bookmarks')
+	" nnoremap ma :<C-u>cgetexpr bm#location_list()<CR>
+	"	\ :<C-u>Denite quickfix -buffer-name=list<CR>
+	nmap ma <Plug>BookmarkShowAll
+	nmap mn <Plug>BookmarkNext
+	nmap mp <Plug>BookmarkPrev
+	nmap mt <Plug>BookmarkToggle
+	nmap mi <Plug>BookmarkAnnotate
+endif
+
 if dein#tap('vim-quickhl')
-	nmap <Leader>, <Plug>(quickhl-manual-this)
-	xmap <Leader>, <Plug>(quickhl-manual-this)
-	nmap <Leader>< <Plug>(quickhl-manual-reset)
-	xmap <Leader>< <Plug>(quickhl-manual-reset)
+	nmap <Leader>m  <Plug>(quickhl-manual-this)
+	xmap <Leader>m  <Plug>(quickhl-manual-this)
+	nmap <Leader>M  <Plug>(quickhl-manual-reset)
+	xmap <Leader>M  <Plug>(quickhl-manual-reset)
+	nmap yom        <Plug>(quickhl-manual-toggle)
 endif
 
 if dein#tap('vim-sidemenu')
-	nmap <Leader>l <Plug>(sidemenu)
-	xmap <Leader>l <Plug>(sidemenu-visual)
+	nnoremap <LocalLeader>l <Plug>(sidemenu)
+	xnoremap <LocalLeader>l <Plug>(sidemenu-visual)
 endif
 
 if dein#tap('vim-indent-guides')
-	nmap <silent><Leader>ti :<C-u>IndentGuidesToggle<CR>
-endif
-
-if dein#tap('vim-bookmarks')
-	nmap ma :<C-u>cgetexpr bm#location_list()<CR>
-		\ :<C-u>Denite quickfix -buffer-name=list<CR>
-	nmap mn <Plug>BookmarkNext
-	nmap mp <Plug>BookmarkPrev
-	nmap mm <Plug>BookmarkToggle
-	nmap mi <Plug>BookmarkAnnotate
+	nnoremap <silent>yog :<C-u>IndentGuidesToggle<CR>
 endif
 
 if dein#tap('auto-git-diff')
@@ -186,23 +199,35 @@ if dein#tap('python_match.vim')
 endif
 
 if dein#tap('goyo.vim')
-	nnoremap <Leader>G :Goyo<CR>
-endif
-
-if dein#tap('vim-peekaboo')
-	nnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  0)<cr>
-	xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
-	nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
-	inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
+	nnoremap <LocalLeader>G :Goyo<CR>
 endif
 
 if dein#tap('vimwiki')
-	nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
+  "global mappings
+  nmap <LocalLeader>ww <Plug>VimwikiIndex
+  nmap <LocalLeader>wt <Plug>VimwikiTabIndex
+  nmap <LocalLeader>ws <Plug>VimwikiUISelect
+  nmap <LocalLeader>wi <Plug>VimwikiDiaryIndex
+  nmap <LocalLeader>w<LocalLeader>w <Plug>VimwikiMakeDiaryNote
+  nmap <LocalLeader>w<LocalLeader>t <Plug>VimwikiTabMakeDiaryNote
+  nmap <LocalLeader>w<LocalLeader>y <Plug>VimwikiMakeYesterdayDiaryNote
+  nmap <LocalLeader>w<LocalLeader>m <Plug>VimwikiMakeTomorrowDiaryNote
+  "local mappings
+  nmap <LocalLeader>wh <Plug>Vimwiki2HTML
+  nmap <LocalLeader>whh <Plug>Vimwiki2HTMLBrowse
+  nmap <LocalLeader>w<LocalLeader>i <Plug>VimwikiDiaryGenerateLinks
+  nmap <LocalLeader>wd <Plug>VimwikiDeleteLink
+  nmap <LocalLeader>wr <Plug>VimwikiRenameLink
 endif
 
 if dein#tap('vim-choosewin')
-	nmap -         <Plug>(choosewin)
-	nmap <Leader>- :<C-u>ChooseWinSwapStay<CR>
+	nmap <silent> <Leader>- <Plug>(choosewin)
+	nnoremap <silent> <Leader>_ :<C-u>ChooseWinSwapStay<CR>
+endif
+
+if dein#tap('vim-bbye')
+	nnoremap <silent> <Leader>q :<C-u>Bdelete<CR>
+	nnoremap <silent> <Leader>Q :<C-u>:bufdo :Bdelete<CR>
 endif
 
 if dein#tap('jedi-vim')
@@ -214,23 +239,18 @@ if dein#tap('jedi-vim')
 	let g:jedi#usages_command = '<Leader>n'
 endif
 
-if dein#tap('vimagit')
-	nnoremap <silent> mg :Magit<CR>
-endif
-
 if dein#tap('vim-easygit')
-	nnoremap <silent> <leader>gd :Gdiff<CR>
-	nnoremap <silent> <leader>gD :Gdiffoff<CR>
-	nnoremap <silent> <leader>gc :Gcommit<CR>
-	nnoremap <silent> <leader>gb :Gblame<CR>
-	nnoremap <silent> <leader>gB :Gbrowse<CR>
-	nnoremap <silent> <leader>gS :Gstatus<CR>
-	nnoremap <silent> <leader>gp :Gpush<CR>
+	" nnoremap <silent> <leader>gd :Gdiff<CR>
+	" nnoremap <silent> <leader>gD :GdiffThis<CR>
+	" nnoremap <silent> <leader>gc :Gcommit<CR>
+	" nnoremap <silent> <leader>gb :Gblame<CR>
+	" nnoremap <silent> <leader>gs :Gstatus<CR>
+	" nnoremap <silent> <leader>gp :Gpush<CR>
 endif
 
 if dein#tap('vim-altr')
-	nmap gs  <Plug>(altr-forward)
-	nmap gS  <Plug>(altr-back)
+	nmap <Leader>bf  <Plug>(altr-forward)
+	nmap <Leader>bb  <Plug>(altr-back)
 endif
 
 if dein#tap('open-browser.vim')
@@ -238,19 +258,46 @@ if dein#tap('open-browser.vim')
 	vmap gx <Plug>(openbrowser-smart-search)
 endif
 
+if dein#tap('tabular')
+	" looks at the current line and the lines above and below it and aligns all the
+	" equals signs; useful for when we have several lines of declarations
+	nnoremap <Leader>z= :Tabularize /=<CR>
+	vnoremap <Leader>z= :Tabularize /=<CR>
+	nnoremap <Leader>z: :Tabularize /:\zs<CR>
+	vnoremap <Leader>z: :Tabularize /:\zs<CR>
+	nnoremap <Leader>z/ :Tabularize /\/\//l2c1l0<CR>
+	vnoremap <Leader>z/ :Tabularize /\/\//l2c1l0<CR>
+	nnoremap <Leader>z, :Tabularize /,/l0r1<CR>
+	vnoremap <Leader>z, :Tabularize /,/l0r1<CR>
+
+	" trigger the :Tabular command when you type '|' that you want to align.
+	inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+	function! s:align()
+		let p = '^\s*|\s.*\s|\s*$'
+		if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+			let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+			let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+			Tabularize/|/l1
+			normal! 0
+			call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+		endif
+	endfunction
+endif
+
 if dein#tap('undotree')
-	nnoremap <Leader>gu :UndotreeToggle<CR>
+	nnoremap <Leader>u :UndotreeToggle<CR>
 endif
 
 if dein#tap('vim-online-thesaurus')
-	nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
+	nnoremap <silent> <LocalLeader>K :<C-u>OnlineThesaurusCurrentWord<CR>
 endif
 
 if dein#tap('vim-asterisk')
-	map *   <Plug>(asterisk-g*)
-	map g*  <Plug>(asterisk-*)
-	map #   <Plug>(asterisk-g#)
-	map g#  <Plug>(asterisk-#)
+	map *   <Plug>(asterisk-*)zzzv
+	map g*  <Plug>(asterisk-g*)zzzv
+	map #   <Plug>(asterisk-#)zzzv
+	map g#  <Plug>(asterisk-g#)zzzv
 
 	map z*  <Plug>(asterisk-z*)
 	map gz* <Plug>(asterisk-gz*)
@@ -275,38 +322,25 @@ endif
 if dein#tap('splitjoin.vim')
 	let g:splitjoin_join_mapping = ''
 	let g:splitjoin_split_mapping = ''
-	nmap sj :SplitjoinJoin<CR>
-	nmap sk :SplitjoinSplit<CR>
+	nmap <Leader>\\ :SplitjoinJoin<CR>
+	nmap <Leader>\ :SplitjoinSplit<CR>
 endif
 
 if dein#tap('linediff.vim')
-	vnoremap ,df :Linediff<CR>
-	vnoremap ,da :LinediffAdd<CR>
-	nnoremap ,ds :<C-u>LinediffShow<CR>
-	nnoremap ,dr :<C-u>LinediffReset<CR>
-endif
-
-if dein#tap('dsf.vim')
-	nmap dsf <Plug>DsfDelete
-	nmap csf <Plug>DsfChange
+	vnoremap <Leader>df :Linediff<CR>
+	vnoremap <Leader>da :LinediffAdd<CR>
+	nnoremap <Leader>ds :<C-u>LinediffShow<CR>
+	nnoremap <Leader>dr :<C-u>LinediffReset<CR>
 endif
 
 if dein#tap('caw.vim')
 	function! InitCaw() abort
 		if ! &l:modifiable
-			silent! nunmap <buffer> <Leader>V
-			silent! xunmap <buffer> <Leader>V
-			silent! nunmap <buffer> <Leader>v
-			silent! xunmap <buffer> <Leader>v
 			silent! nunmap <buffer> gc
 			silent! xunmap <buffer> gc
 			silent! nunmap <buffer> gcc
 			silent! xunmap <buffer> gcc
 		else
-			xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-			nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-			xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
-			nmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
 			nmap <buffer> gc <Plug>(caw:prefix)
 			xmap <buffer> gc <Plug>(caw:prefix)
 			nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
@@ -318,17 +352,16 @@ if dein#tap('caw.vim')
 endif
 
 if dein#tap('vim-easymotion')
-	nmap ss <Plug>(easymotion-s2)
-	nmap sd <Plug>(easymotion-s)
-	nmap sf <Plug>(easymotion-overwin-f)
-	map  sh <Plug>(easymotion-linebackward)
-	map  sl <Plug>(easymotion-lineforward)
-	" map  sj <Plug>(easymotion-j)
-	" map  sk <Plug>(easymotion-k)
-	map  s/ <Plug>(easymotion-sn)
-	omap s/ <Plug>(easymotion-tn)
-	map  sn <Plug>(easymotion-next)
-	map  sp <Plug>(easymotion-prev)
+	map s <Plug>(easymotion-s2)
+	" map sf <Plug>(easymotion-overwin-f2)
+	" map sj <Plug>(easymotion-j)
+	" map sk <Plug>(easymotion-k)
+	map f <Plug>(easymotion-fl)
+	map F <Plug>(easymotion-Fl)
+	map t <Plug>(easymotion-tl)
+	map T <Plug>(easymotion-Tl)
+	map L <Plug>(easymotion-next)
+	map H <Plug>(easymotion-prev)
 endif
 
 if dein#tap('vim-textobj-multiblock')
@@ -345,4 +378,39 @@ if dein#tap('vim-textobj-function')
 	xmap <silent> if <Plug>(textobj-function-i)
 endif
 
+if dein#tap('vim-markdown')
+	autocmd FileType markdown let b:sleuth_automatic=0
+	" autocmd FileType markdown set conceallevel=0
+	autocmd FileType markdown normal zR
+endif
+
+if dein#tap('vim-grepper')
+  " Define an Abbreviation to Expand :grep to :GrepperGrep
+  function! s:SetupCommandAlias(input, output)
+    exec 'cabbrev <expr> '.a:input
+      \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:input.'")'
+      \ .'? ("'.a:output.'") : ("'.a:input.'"))'
+  endfunction
+
+  call s:SetupCommandAlias("grep", "Grepper")
+  nnoremap <Leader>ff :Grepper -buffer<CR>
+  nnoremap <Leader>fb :Grepper -buffers<CR>
+  nnoremap <Leader>fB :Grepper -buffers -cword -noprompt<CR>
+  nnoremap <Leader>fd :Grepper<CR>
+  nnoremap <leader>fD :Grepper -cword -noprompt<CR>
+
+  " Operator mode
+  noremap S <plug>(GrepperOperator)
+endif
+
+if dein#tap('deol.nvim')
+  function! s:openDeol()
+    exe 'topleft split'
+    let lines = &lines * 30 / 100
+    exe 'resize ' . lines
+    Deol
+  endfunc
+
+  nnoremap <silent> <Leader>' :<C-u>call <SID>openDeol()<cr>
+endif
 " vim: set ts=2 sw=2 tw=80 noet :

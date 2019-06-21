@@ -14,6 +14,6 @@ let g:neomake_ansible_enabled_makers = ['yamllint']
 let g:neomake_ansible_yamllint_maker = neomake#makers#ft#yaml#yamllint()
 
 " SHELL
-let g:neomake_shellcheck_args = ['-fgcc']
+let g:neomake_shellcheck_args = ['-xfgcc']
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

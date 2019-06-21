@@ -139,6 +139,9 @@ highlight! link ExtraWhitespace  SpellBad
 highlight! WarningMsg ctermfg=100 guifg=#CCC566
 " }}}
 
+highlight ParenMatch  ctermbg=236 guibg=#30302c
+highlight CursorWord0 ctermbg=236 guibg=#30302c
+highlight CursorWord1 ctermbg=236 guibg=#30302c
 
 " Plugin: Defx icons and highlights {{{
 " ---------------------------------------------------------
